@@ -1,0 +1,113 @@
+@use "vars-scss" as *;
+
+@mixin box($isInset: false, $hasBefore: true, $isClickable: false, $position: relative) {
+    position: $position;
+    border: 1px solid;
+
+    $border-outer: $white $black $black $white;
+    $border-outer-inset: $black $white $white $black;
+
+    $border-inner: $lightgrey $darkgrey $darkgrey $lightgrey;
+    $border-inner-inset: $darkgrey $lightgrey $lightgrey $darkgrey;
+
+    @if $hasBefore {
+        &::before {
+            content: " ";
+            position: absolute;
+            inset: 0;
+            border: 1px solid;
+            pointer-events: none;
+            z-index: 1;
+
+            @if $isInset {
+                border-color: $border-inner-inset;
+            } @else {
+                border-color: $border-inner;
+            }
+        }
+    }
+
+    @if $isInset {
+        border-color: $border-outer-inset;
+    } @else {
+        border-color: $border-outer;
+    }
+
+    @if $isClickable {
+        &:active {
+            border-color: $border-outer-inset;
+            &::before {
+                border-color: $border-inner-inset;
+            }
+        }
+    }
+}
+
+@mixin inset($position: relative) {
+    @include box($isInset: true, $position: $position);
+}
+
+@mixin thin($position: relative) {
+    @include box($hasBefore: false, $position: $position);
+}
+
+@mixin scroller($position: relative) {
+    @include box($isInset: true, $hasBefore: false, $position: $position);
+}
+
+@mixin clickable($position: relative) {
+    @include box($isClickable: true, $position: $position);
+}
+
+@mixin tab() {
+    @include box;
+    border-bottom-color: transparent;
+    border-radius: 4px 4px 0 0;
+    padding: 2px 8px;
+
+    &::before {
+        border-bottom: 0;
+    }
+
+    &:is(.selected-1sf9UK, :active, :hover) {
+        border-bottom-color: transparent;
+    }
+
+    &:is(.selected-1sf9UK, :active) {
+        background: $grey;
+        z-index: 1;
+    }
+}
+
+@mixin winBar($isPseudo: false, $bgColor: $darkgrey, $text: "") {
+    $selector: "&";
+
+    @if $isPseudo {
+        $selector: "&::after";
+    }
+
+    #{$selector} {
+        background: padding-box $bgColor;
+        border: 2px solid transparent;
+        color: $grey;
+        font-size: 1rem;
+        font-weight: bold;
+        height: 18px;
+        line-height: 1.2rem;
+        padding: 2px;
+
+        @if $isPseudo {
+            content: $text;
+            display: block;
+            position: absolute;
+            z-index: 1;
+            inset: 2px 2px auto;
+        }
+    }
+}
+
+@mixin mainWindow() {
+    margin: $window-top $window-right $window-bottom $window-left;
+    overflow: hidden;
+    @include box;
+}

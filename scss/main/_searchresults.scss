@@ -1,0 +1,80 @@
+@use "../top/vars-scss" as *;
+@use "../top/boxes" as boxes;
+
+// Search results
+.searchResultsWrap-5RVOkx {
+    @include boxes.inset;
+    margin: 0 2px 2px;
+
+    .searchHeader-1r_ZSh {
+        background: transparent;
+        padding: 8px 28px 0 16px;
+        height: 28px;
+
+        // Tabs
+        .searchHeaderTabList-3CZMQB {
+            gap: 0;
+
+            // Tab
+            .item-2GWPIy {
+                @include boxes.tab;
+            }
+        }
+    }
+
+    .scroller-3iiyhZ {
+        @include boxes.box($position: static);
+        margin: 0 8px 8px;
+
+        &::before {
+            display: none;
+        }
+
+        // Result
+        .searchResult-O9NDji {
+            background: var(--w9x-background);
+            @include boxes.inset;
+        }
+
+        // Jump button
+        .button-cfOvv- {
+            @include boxes.clickable;
+        }
+
+        #search-results {
+            margin-top: 40px;
+        }
+
+        // Navigation
+        .container-1-h9mY {
+            position: absolute;
+            top: 29px;
+            left: 9px;
+            right: 27px;
+            background: $grey;
+            z-index: 1;
+            border-bottom: 1px solid $black;
+
+            .pageControlContainer-1Mbe6M {
+                margin-top: 0;
+            }
+
+            .pageControl-1Kt_nb {
+
+                // Buttons
+                .pageButton-uta6J3 {
+                    min-height: unset;
+                    margin: 0;
+
+                    &:disabled {
+                        @include boxes.box;
+                    }
+                    
+                    &:not(:disabled) {
+                        @include boxes.clickable;
+                    }
+                }
+            }
+        }
+    }
+}

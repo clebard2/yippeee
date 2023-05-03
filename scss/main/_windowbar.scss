@@ -1,0 +1,57 @@
+@use "../top/vars-scss" as *;
+@use "../top/boxes" as boxes;
+
+// Top bar
+
+// On Windows
+.typeWindows-2-g3UY {
+    margin: unset;
+    @include boxes.winBar($text: "Discord", $bgColor: $darkblue);
+    position: absolute;
+    left: $window-left + 2px;
+    right: $window-right + 2px;
+    top: $window-top + 2px;
+    z-index: 102;
+
+    // Discord logo
+    .wordmarkWindows-2dq6rw {
+        padding: 0;
+        margin: 2px 0 0 2px;
+
+        &::before {
+            content: "Discord";
+            display: block;
+            position: relative;
+            font-size: 1rem;
+            color: $grey;
+        }
+
+        svg {
+            display: none;
+        }
+    }
+
+    // Buttons
+    .winButton-3UMjdg {
+        @include boxes.clickable;
+        background: $grey;
+        height: 16px;
+        margin-top: 4px;
+        width: 20px;
+        color: $black;
+
+        &.winButtonClose-3Q8ZH5 {
+            margin-left: 2px;
+        }
+    }
+}
+
+// On Linux
+.platform-linux .appMount-2yBXZl {
+    @include boxes.winBar($isPseudo: true, $bgColor: $darkblue, $text: "Discord");
+
+    &::after {
+        inset: ($window-top + 2px) ($window-right + 2px) 0 ($window-left + 2px);
+        z-index: 101;
+    }
+}

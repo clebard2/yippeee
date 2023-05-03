@@ -1,0 +1,35 @@
+@mixin makeIcon($left-offset, $right-offset, $inner-element, $image) {
+    position: fixed;
+    height: auto;
+    margin: 0;
+    right: $right-offset;
+    left: $left-offset;
+    display: flex;
+    justify-content: center;
+
+    :is(#{$inner-element}) {
+        background-image: $image;
+        padding: 5px;
+        margin: 5px;
+        height: 32px;
+        width: 32px;
+
+        color: white;
+    }
+
+    &::before {
+        content: attr(aria-label);
+        display: block;
+        position: absolute;
+        top: 46px;
+        width: fit-content;
+        font-size: 1rem;
+        line-height: 1rem;
+        color: white;
+        text-align: center;
+    }
+
+    svg path {
+        display: none;
+    }
+}
